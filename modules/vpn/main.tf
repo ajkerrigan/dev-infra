@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      version = "~> 3.0"
+    }
+  }
+}
+
 data "aws_vpc" "selected" {
   id = var.vpc_id
 }
@@ -46,11 +55,12 @@ resource "aws_ec2_client_vpn_network_association" "main" {
 }
 
 resource "aws_ec2_client_vpn_route" "main" {
-  for_each = data.aws_subnet_ids.selected.ids
+  # Explicitly depending on the association should help avoid some timing issues
+  for_each = aws_ec2_client_vpn_network_association.main
 
   client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.main.id
   destination_cidr_block = "0.0.0.0/0"
-  target_vpc_subnet_id   = each.value
+  target_vpc_subnet_id   = each.value.subnet_id
 }
 
 resource "tls_private_key" "server" {
@@ -98,7 +108,7 @@ resource "tls_self_signed_cert" "client" {
   uris = ["client"]
 
   allowed_uses = [
-    "server_auth"
+    "client_auth"
   ]
 }
 
@@ -117,6 +127,11 @@ resource "local_file" "ovpn" {
       client_key : tls_private_key.client.private_key_pem
     }
   )
-  filename        = "client.ovpn"
+  filename        = "${path.root}/client.ovpn"
   file_permission = "0400"
+}
+
+output "vpn_client_config" {
+  description = "Path to the client.ovpn file"
+  value = abspath(local_file.ovpn.filename)
 }

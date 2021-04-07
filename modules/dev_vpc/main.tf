@@ -3,6 +3,15 @@ data "aws_security_group" "default" {
   vpc_id = module.dev_vpc.vpc_id
 }
 
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      version = "~> 3.0"
+    }
+  }
+}
+
 module "dev_vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "2.77.0"

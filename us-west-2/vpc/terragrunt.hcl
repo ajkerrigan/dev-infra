@@ -2,15 +2,6 @@ include {
   path = find_in_parent_folders()
 }
 
-generate "provider" {
-  path      = "provider.tf"
-  if_exists = "overwrite_terragrunt"
-  contents = templatefile(
-    "${get_parent_terragrunt_dir()}/common/provider.tpl",
-    { aws_region = "us-west-2" }
-  )
-}
-
 terraform {
   source = "${get_parent_terragrunt_dir()}//modules/dev_vpc"
 }
