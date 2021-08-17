@@ -3,7 +3,7 @@ data "aws_iam_policy_document" "trust_me" {
     actions = ["sts:AssumeRole"]
 
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = [
         "arn:aws:iam::000000000000:root"
       ]
@@ -16,7 +16,7 @@ data "aws_iam_policy_document" "trust_everybody" {
     actions = ["sts:AssumeRole"]
 
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = [
         "arn:aws:iam::000000000000:root",
         "*",

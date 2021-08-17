@@ -1,5 +1,5 @@
 locals {
-  state_bucket = get_env("STATE_BUCKET", "tfstate-${try(get_aws_account_id(), "local")}")
+  state_bucket  = get_env("STATE_BUCKET", "tfstate-${try(get_aws_account_id(), "local")}")
   region_config = read_terragrunt_config(find_in_parent_folders("region.hcl", "defaults.hcl"))
 
   # Shorthand

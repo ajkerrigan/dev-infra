@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     aws = {
-      source = "hashicorp/aws"
+      source  = "hashicorp/aws"
       version = "~> 3.0"
     }
   }
@@ -133,5 +133,5 @@ resource "local_file" "ovpn" {
 
 output "vpn_client_config" {
   description = "Path to the client.ovpn file"
-  value = abspath(local_file.ovpn.filename)
+  value       = abspath(local_file.ovpn.filename)
 }

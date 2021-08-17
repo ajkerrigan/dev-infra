@@ -39,13 +39,13 @@ data "aws_subnet_ids" "public" {
 resource "aws_instance" "private" {
   ami           = data.aws_ami.selected.id
   instance_type = "t3.micro"
-  subnet_id   = tolist(data.aws_subnet_ids.private.ids)[0]
-  tags = local.tags
+  subnet_id     = tolist(data.aws_subnet_ids.private.ids)[0]
+  tags          = local.tags
 }
 
 resource "aws_instance" "public" {
   ami           = data.aws_ami.selected.id
   instance_type = "t3.micro"
-  subnet_id   = tolist(data.aws_subnet_ids.public.ids)[0]
-  tags = local.tags
+  subnet_id     = tolist(data.aws_subnet_ids.public.ids)[0]
+  tags          = local.tags
 }

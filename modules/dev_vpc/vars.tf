@@ -23,6 +23,6 @@ variable "tags" {
 }
 
 variable "enable_ipv6" {
-  type = bool
+  type    = bool
   default = true
 }
