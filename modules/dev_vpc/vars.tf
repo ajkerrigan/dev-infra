@@ -21,3 +21,8 @@ variable "cidr" {
 variable "tags" {
   type = map(string)
 }
+
+variable "enable_ipv6" {
+  type = bool
+  default = true
+}
