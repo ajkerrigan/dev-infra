@@ -35,3 +35,7 @@ terraform.rc
 
 # Terragrunt
 .terragrunt-cache
+
+# Generated files for localstack
+localstack/**/backend.tf
+localstack/**/provider.tf
