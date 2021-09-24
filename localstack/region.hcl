@@ -33,4 +33,9 @@ locals {
     sts            = "http://localhost:4566"
   }
 EOF
+
+  remote_state_backend = "local"
+  remote_state_config = {
+    path = "terraform.tfstate"
+  }
 }
